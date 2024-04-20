@@ -5,7 +5,9 @@ package org.example.domain.viaje;
 import org.example.domain.usuario.Persona;
 import org.example.domain.viaje.estimadortiempo.CalculadorDeDistancia;
 import org.example.domain.viaje.estimadortiempo.DistanceMatrixAdapter;
+import org.example.domain.viaje.reaccionaranteincidente.ReaccionarAnteIncidente;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -27,6 +29,7 @@ public class Viaje {
     this.duracionEstimada = duracionEstimada;
     this.fechaInicio = fechaInicio;
     this.transeunte = transeunte;
+    this.cuidadores = new ArrayList<>();
   }
 
   public List<Persona> getCuidadores(){

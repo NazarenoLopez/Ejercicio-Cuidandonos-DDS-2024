@@ -1,6 +1,6 @@
-Cuidándonos
+###Cuidándonos
 
-Contexto general
+##Contexto general
 El Gobierno de la Ciudad nos ha contratado para la realización de un sistema de seguridad
 personal, el cual debe asegurar que los vecinos de todas las comunas puedan caminar de un
 destino a otro sin peligro. Será una aplicación Mobile en donde una persona, el transeúnte,
@@ -49,3 +49,32 @@ aproximadas por secciones (demora de A->B, demora B->C, etc.); caso contrario, s
 aproximado total.
 Extienda su solución para que soporte este nuevo requerimiento. Además, muestre mediante código o
 pseudocódigo cómo implementaría el cálculo de demora aproximado. (15 puntos)
+
+
+
+##Consideraciones
+Consideré modelar a los transeuntes y cuidadores como personas. 
+
+-El transeunte es el que solicita ser seguido por un cuidador hasta el destino del viaje.
+
+-Para poder iniciar el viaje hay que decir tanto el origen como el destino del viaje, y los cuidadores que se quieren que acompañen.
+
+-La parte confirmar los cuidadores y comenzar el viaje no la modelé, ya que es un caso de uso, se hará sobre la interfaz 
+
+-Por parte de aceptar o rechazar el trabajo de cuidar, se realiza también desde la interfaz.
+
+- Cuando un cuidador acepta el trabajo, al transeunte se le habilita el botón de comenzar el viaje, también se hace en la interfaz.
+- El cálculo de la distancia entre dos direcciones se hace con la API de Google, por lo que no lo modelé, solo utilicé el adapter para poder hacer uso de la API. Con esto logro
+- no acoplarme al codigo de google, permitiendome cambiar de proveedor en un futuro sin hacer mayores cambios.
+- Solo modele el API PARA HACER UNA PRUEBA. En la implementación real ese codigo ya es externo :-)
+
+
+#Envio de notificaciones
+- No se envian notificaciones durante el viaje, ya que el transeunte esta en movimiento. Para esto uso el ENUM de ESTADO del transeunte
+- Ante las distintas reacciones del sistema, decidí que Viaje conozca a las Reacciones, y que estas sean las que se encarguen de reaccionar ante un incidente. 
+- Brindandome la posibilidad de extender mi solución en caso de que sea requerido en un futuro. 
+- Para enviar mensaje de alerta a los cuidadores, tengo que conocer que metodos de notificacion tiene cada cuidador(aún no definido por eso no lo modelo) 
+- Por ejemplo podría tener una interfaz que sea EstrategiaNotificacion y que la implemente cada uno de los metodos que se quieran utilizar para notificar a los cuidadores.
+- 
+#DIAGRAMA DE CLASES
+![Diagrama UML](Diagrama%20UML.png)

@@ -1,0 +1,98 @@
+@startuml
+class LlamarTranseunte {
++ void reaccionar(Viaje)
+}
+
+interface ReaccionarAnteIncidente {
++ void reaccionar(Viaje)
+}
+
+class EsperarReintento {
++ void reaccionar(Viaje)
+}
+
+class Persona {
+- Usuario usuario
+- String nombre
+- String apellido
+- String direccion
+- int edad
+- Sexo sexo
+- boolean tieneAppInstalada
+- Posicion posicion
+- Estado estado
+- ReaccionarAnteIncidente reaccionarAnteIncidente
+}
+
+enum Estado {
++  EN_VIAJE
++  DETENIDO
+}
+
+enum Sexo {
++  FEMENINO
++  MASCULINO
+}
+
+class DistanceMatrixAdapter {
+- DistanceMatrixApi distanceMatrixApi
++ int distanciaEntre(Posicion,Posicion)
+}
+
+
+class Posicion {
+- double longitud
+- double latitud
+- String direccionCompleta
+}
+
+
+
+class Usuario {
+- String nombreDeUsuario
+- String contrasenia
+}
+
+class LlamarPolicia {
++ void reaccionar(Viaje)
+}
+
+class Viaje {
+- Posicion origen
+- Posicion destino
+- List<Persona> cuidadores
+- int duracionEstimada
+- LocalDateTime fechaInicio
+- LocalDateTime fechaFin
+- Persona transeunte
+- CalculadorDeDistancia calculadorDeDistancia
++ List<Persona> getCuidadores()
++ int getDuracionEstimada()
+}
+
+
+interface CalculadorDeDistancia {
+~ int distanciaEntre(Posicion,Posicion)
+}
+
+class EnviarMensajeAlerta {
++ void reaccionar(Viaje)
+}
+
+CalculadorDeDistancia <|.. DistanceMatrixAdapter
+Persona <-- Viaje
+Persona "*" <-- Viaje
+Sexo <-- Persona
+Persona *-right- Usuario
+Persona *-left- Posicion
+Posicion  <-- Viaje
+Posicion <-- Viaje
+Estado <-- Persona
+CalculadorDeDistancia <|-left- Viaje
+
+ReaccionarAnteIncidente <|.. LlamarTranseunte
+ReaccionarAnteIncidente <|.. EsperarReintento
+ReaccionarAnteIncidente <-down- Persona
+ReaccionarAnteIncidente <|.. LlamarPolicia
+ReaccionarAnteIncidente <|.. EnviarMensajeAlerta
+@enduml
